@@ -85,6 +85,7 @@ fill_templates () {
     fill_script
     fill_library_files
     fill_service_files
+    fill_e2_service_files
     fill_yaws_files
     fill_yaws_bootstrap_files
     fill_presentation_files

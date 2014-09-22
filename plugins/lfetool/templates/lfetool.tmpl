@@ -20,6 +20,13 @@ svctestmodule="{{SVCTESTMODULE}}"
 svcapp="{{SVCAPP}}"
 svcserver="{{SVCSERVER}}"
 svcsup="{{SVCSUP}}"
+e2makefile="{{E2MAKEFILE}}"
+e2mk="{{E2MK}}"
+e2rebar="{{E2REBAR}}"
+e2appsrc="{{E2APPSRC}}"
+e2testmodule="{{E2TESTMODULE}}"
+e2app="{{E2APP}}"
+e2server="{{E2SERVER}}"
 yawsmakefile="{{YAWSMAKEFILE}}"
 yawsrebar="{{YAWSREBAR}}"
 yawsconf="{{YAWSCONF}}"
@@ -762,6 +769,22 @@ create_service_files () {
         $project/src/$project-util.lfe {{PROJECT}} $project
 }
 
+create_e2_service_files () {
+    project=$1
+    create_file "$e2mk" $project/resources/make/e2.mk {{PROJECT}} $project
+    create_file "$e2makefile" $project/Makefile {{PROJECT}} $project
+    create_file "$e2rebar" $project/rebar.config
+    create_file "$e2appsrc" $project/src/$project.app.src {{PROJECT}} $project
+    create_file "$e2testmodule" \
+        $project/test/unit-${project}-tests.lfe {{PROJECT}} $project
+    create_file "$e2app" \
+        $project/src/${project}-app.lfe {{PROJECT}} $project
+    create_file "$e2server" \
+        $project/src/${project}-server.lfe {{PROJECT}} $project
+    create_file "$libutilmodule" \
+        $project/src/$project-util.lfe {{PROJECT}} $project
+}
+
 create_yaws_files () {
     project=$1
     create_file "$yawsmk" $project/resources/make/yaws.mk {{PROJECT}} $project
@@ -880,9 +903,12 @@ setup_service_project () {
 
 setup_e2_service_project () {
     project=$1
+    echo "Setting up starter e2 service project $project ..."
+    create_dirs $project
+    create_project_files $project
+    create_e2_service_files $project
+    post_create $project
 
-    #echo "Setting up starter e2 service project $project ..."
-    not_implemented_error
 }
 
 setup_yaws_project () {
