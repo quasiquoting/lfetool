@@ -462,7 +462,7 @@ get_path () {
 }
 
 get_erl_libs () {
-    find $DEPS -maxdepth 1 -exec printf "%s:" {} \; | sed "s#\(.*$\)#\1$TEST_OUT_DIR:.#"
+    echo $ERL_LIBS:`find $DEPS -maxdepth 1 -exec printf "%s:" {} \; | sed "s#\(.*$\)#\1$TEST_OUT_DIR:.#"`
 }
 
 construct_pa_ebin_option()
@@ -504,15 +504,15 @@ all_but_last_line () {
 }
 
 get_unit_tests () {
-    ERL_LIBS=`lfetool info erllibs` erl -eval "io:format(\"~p\", [ltest:'get-unit-beams'()])" -noshell -s erlang halt|tr -d "\n[] "|tr \" \'|sed -e 's|./.eunit/||g'
+    ERL_LIBS=$ERL_LIBS:`lfetool info erllibs` erl -eval "io:format(\"~p\", [ltest:'get-unit-beams'()])" -noshell -s erlang halt|tr -d "\n[] "|tr \" \'|sed -e 's|./.eunit/||g'
 }
 
 get_integration_tests () {
-    ERL_LIBS=`lfetool info erllibs` erl -eval "io:format(\"~p\", [ltest:'get-integration-beams'()])" -noshell -s erlang halt|tr -d "\n[] "|tr \" \'|sed -e 's|./.eunit/||g'
+    ERL_LIBS=$ERL_LIBS:`lfetool info erllibs` erl -eval "io:format(\"~p\", [ltest:'get-integration-beams'()])" -noshell -s erlang halt|tr -d "\n[] "|tr \" \'|sed -e 's|./.eunit/||g'
 }
 
 get_system_tests () {
-    ERL_LIBS=`lfetool info erllibs` erl -eval "io:format(\"~p\", [ltest:'get-system-beams'()])" -noshell -s erlang halt|tr -d "\n[] "|tr \" \'|sed -e 's|./.eunit/||g'
+    ERL_LIBS=$ERL_LIBS:`lfetool info erllibs` erl -eval "io:format(\"~p\", [ltest:'get-system-beams'()])" -noshell -s erlang halt|tr -d "\n[] "|tr \" \'|sed -e 's|./.eunit/||g'
 }
 
 clean_test_results () {
