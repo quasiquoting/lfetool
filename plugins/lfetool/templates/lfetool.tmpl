@@ -295,7 +295,7 @@ install_lfetool () {
         echo
         echo "Installed lfetool to $directory."
     elif [ $mode = update ]; then
-        url="https://raw.githubusercontent.com/lfe/lfetool/master/lfetool"
+        url="https://raw.githubusercontent.com/lfe/lfetool/stable/lfetool"
         file=lfetool
         cd /tmp/ > /dev/null 2>&1 && \
         download_file $url #&& \
