@@ -1,7 +1,7 @@
 #!/bin/bash
 #set -x
 
-version=1.1.0
+version=1.3.0
 tooltemplate="plugins/lfetool/templates/lfetool.tmpl"
 compresstemplate="plugins/lfetool/templates/compressed.tmpl"
 temp="lfetool-temp"
@@ -85,6 +85,7 @@ fill_templates () {
     fill_script
     fill_library_files
     fill_service_files
+    fill_e2_service_files
     fill_yaws_files
     fill_yaws_bootstrap_files
     fill_presentation_files
