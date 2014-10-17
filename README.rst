@@ -114,13 +114,13 @@ Branches
 
 The following branches are used by this project:
 
-* stable - what you should use for all your production needs; currently on
+* **stable** - what you should use for all your production needs; currently on
   v1.x; this is the default branch
-* dev-v1 - on-going improvements to the v1.x series
-* dev-v2 - a convertion of lfetool from a large Bash script to an LFE project;
+* **dev-v1** - on-going improvements to the v1.x series
+* **dev-v2** - a convertion of lfetool from a large Bash script to an LFE project;
   the v2.x series (every release to stable gets merged into dev-v2, to benefit
   from any bug fixes/hot-fixes/template improvements/additions/etc.)
-* master - this is kept around for legacy purposes (there are some projects
+* **master** - this is kept around for legacy purposes (there are some projects
   still using the old v1.0.x series)
 
 Creating lfetool Plugins
