@@ -27,8 +27,6 @@ And these commands:
 
 Usage information for each of these is linked to below in the "Usage" section.
 
-*Note*: This project superscedes its precursor, the `lfe-skel`_ project.
-
 
 Installation
 ============
