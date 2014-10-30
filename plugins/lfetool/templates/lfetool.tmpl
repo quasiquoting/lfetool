@@ -465,9 +465,9 @@ get_erl_libs () {
     echo $ERL_LIBS:`find $DEPS -maxdepth 1 -exec printf "%s:" {} \; | sed "s#\(.*$\)#\1$TEST_OUT_DIR:.#"`
 }
 
-construct_pa_ebin_option()
-{
-    echo $DEPS/*/ebin | tr ' ' '\n' | awk '{printf("-pa %s ", $1)} END{print "-pa ./ebin -pa .eunit"}'
+construct_pa_ebin_option() {
+    #echo $DEPS/*/ebin | tr ' ' '\n' | awk '{printf("-pa %s ", $1)} END{print "-pa ./ebin -pa .eunit"}'
+    echo {$DEPS/*,.,..,../$(basename `pwd`)}/ebin | tr ' ' '\n' | awk '{printf("-pa %s ", $1)} END{print "-pa .eunit"}'
 }
 
 get_versions () {
