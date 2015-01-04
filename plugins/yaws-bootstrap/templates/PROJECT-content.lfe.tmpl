@@ -18,7 +18,7 @@
         (body
           (main
             (list
-              (get-navbar)
+              ({{PROJECT}}-nav:get-navbar)
               (div '(class "section")
                 (div '(class "container")
                   (div '(class "row well")
@@ -41,7 +41,7 @@
           title
           (div '(class "col-md-3 col-sm-4 sidebar")
             (ul '(class "nav nav-stacked nav-pills")
-              (get-side-menu)))
+              ({{PROJECT}}-nav:get-side-menu)))
           (div
             (list
               (h1 title)
