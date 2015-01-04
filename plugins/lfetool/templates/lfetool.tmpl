@@ -37,7 +37,6 @@ yawsutilmodule="{{YAWSUTILMODULE}}"
 yawsbootstrapcontentmodule="{{YAWSBOOTSTRAPCONTENTMODULE}}"
 yawsbootstrapnavmodule="{{YAWSBOOTSTRAPNAVMODULE}}"
 yawsbootstraproutesmodule="{{YAWSBOOTSTRAPROUTESMODULE}}"
-yawsbootstraputilmodule="{{YAWSBOOTSTRAPUTILMODULE}}"
 yawsbootstrapcss="{{YAWSBOOTSTRAPCSS}}"
 yawsbootstrapcssmin="{{YAWSBOOTSTRAPCSSMIN}}"
 yawsbootstrapslatecss="{{YAWSBOOTSTRAPCSSSLATE}}"
@@ -814,8 +813,6 @@ create_yaws_bootstrap_files () {
         $project/src/${project}-nav.lfe {{PROJECT}} $project
     create_file "$yawsbootstraproutesmodule" \
         $project/src/${project}-routes.lfe {{PROJECT}} $project
-    create_file "$yawsbootstraputilmodule" \
-        $project/src/${project}-util.lfe {{PROJECT}} $project
     create_file "$yawsbootstrapcss" $project/www/css/bootstrap.css
     create_file "$yawsbootstrapcssmin" $project/www/css/bootstrap-min.css
     create_file "$yawsbootstrapslatecss" $project/www/css/bootstrap-slate.css
