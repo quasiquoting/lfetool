@@ -1,0 +1,10 @@
+(defmodule {{PROJECT}}-util
+  (export all))
+
+(defun get-version ()
+  (lutil:get-app-version '{{PROJECT}}))
+
+(defun get-versions ()
+  (++ (lutil:get-versions)
+      `(#({{PROJECT}} ,(get-version)))))
+

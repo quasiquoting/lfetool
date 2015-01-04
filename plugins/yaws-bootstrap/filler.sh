@@ -9,6 +9,9 @@ fill_yaws_bootstrap_files () {
     template="plugins/yaws-bootstrap/templates/PROJECT-routes.lfe.tmpl"
     pattern="{{YAWSBOOTSTRAPROUTESMODULE}}"
     fill_tool_var $template $pattern
+    template="plugins/yaws-bootstrap/templates/PROJECT-util.lfe.tmpl"
+    pattern="{{YAWSBOOTSTRAPUTILMODULE}}"
+    fill_tool_var $template $pattern
     # css files
     template="plugins/yaws-bootstrap/templates/bootstrap.css"
     pattern="{{YAWSBOOTSTRAPCSS}}"
