@@ -3,12 +3,12 @@
 
 (include-lib "deps/yaws/include/yaws_api.hrl")
 
-(defun get-{{PROJECT}}-version ()
-  (lutil:get-app-src-version "src/{{PROJECT}}.app.src"))
-
 (defun get-version ()
-  (++ (lutil:get-version)
-      `(#({{PROJECT}} ,(get-{{PROJECT}}-version)))))
+  (lutil:get-app-version '{{PROJECT}}))
+
+(defun get-versions ()
+  (++ (lutil:get-versions)
+      `(#({{PROJECT}} ,(get-version)))))
 
 (defun parse-path (arg-data)
   "Get pathinfo. This is used as the key to refer to specific preferences.
