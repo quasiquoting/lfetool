@@ -2,7 +2,7 @@
 # common vars
 #############
 
-expectedversion="1.4.0-dev"
+expectedversion="1.4.0"
 scriptname="my-fac"
 libname="my-lib"
 svcname="my-service"
