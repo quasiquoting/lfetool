@@ -1,6 +1,11 @@
 language: erlang
-before_script: "make get-lfetool"
-script: "make check"
+# The following is needed for YAWS projects
+before_install:
+  - sudo apt-get install libpam0g-dev
+before_script:
+  - make get-lfetool
+script:
+  - make check
 notifications:
   #irc: "irc.freenode.org#YOUR-PROJECT-CHANNEL"
   recipients:
