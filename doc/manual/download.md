@@ -19,10 +19,10 @@ $ lfetool download deps
 ```
 
 
-#### Predicence
+#### Precedence
 
 There are three potential locations for configuration, in order of decreasing
-precidence:
+precedence:
 
 * ``./lfe.config``
 * ``~/.lfe/lfe.config``
