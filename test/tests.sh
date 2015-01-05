@@ -130,9 +130,9 @@ testNewYAWS () {
     assertEquals $expected \
         "`find $yawsname -type f|egrep -v 'deps|.git'|wc -l|tr -d ' '`"
     assertEquals "include resources/make/yaws.mk" \
-        "`head -2 $yawsname/Makefile|tail -1`"
-    assertEquals "PROJECT = my-yaws" \
-        "`head -5 $yawsname/resources/make/common.mk|tail -1`"
+        "`head -3 $yawsname/Makefile|tail -1`"
+    assertEquals "ETC_DIR = ./etc" \
+        "`head -1 $yawsname/resources/make/common.mk"
     assertEquals '(defmodule my-yaws' \
         "`head -1 $yawsname/src/my-yaws.lfe`"
     assertEquals '(defmodule my-yaws-routes' \
