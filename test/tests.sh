@@ -62,10 +62,10 @@ testNewLibrary () {
     assertEquals "PROJECT = my-lib" \
         "`head -5 $libname/resources/make/common.mk|tail -1`"
     if [ "$TRAVIS" = "true" ]; then
-        expected="10"
-    else
         expected="13"
         #expected="10"
+    else
+        expected="10"
     fi
     assertEquals $expected \
         "`find $libname -type f|egrep -v 'deps|.git'|wc -l|tr -d ' '`"
@@ -93,9 +93,9 @@ testNewService () {
     assertEquals "PROJECT = my-service" \
         "`head -5 $svcname/resources/make/common.mk|tail -1`"
     if [ "$TRAVIS" = "true" ]; then
-        expected="13"
-    else
         expected="18"
+        #expected="13"
+    else
         expected="13"
     fi
     assertEquals $expected \
