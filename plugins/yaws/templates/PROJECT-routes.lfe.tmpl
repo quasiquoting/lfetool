@@ -6,7 +6,7 @@
 
 (defroutes
   ('GET "/"
-    ({{PROJECT}}-content:get-sidebar-content arg-data))
+    ({{PROJECT}}-content:get-content arg-data))
   ('GET "/content/:id"
     ({{PROJECT}}-content:get-content id arg-data))
   ('GET "/relation/:userid/:accountid"
