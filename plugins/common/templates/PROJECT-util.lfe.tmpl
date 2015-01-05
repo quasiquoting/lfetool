@@ -1,9 +1,9 @@
 (defmodule {{PROJECT}}-util
   (export all))
 
-(defun get-{{PROJECT}}-version ()
-  (lutil:get-app-src-version "src/{{PROJECT}}.app.src"))
+(defun get-version ()
+  (lutil:get-app-version '{{PROJECT}}))
 
 (defun get-versions ()
-  (++ (lutil:get-version)
-      `(#({{PROJECT}} ,(get-{{PROJECT}}-version)))))
+  (++ (lutil:get-versions)
+      `(#({{PROJECT}} ,(get-version)))))

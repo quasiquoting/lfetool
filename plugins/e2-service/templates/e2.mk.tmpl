@@ -16,7 +16,7 @@ log-dir:
 	@mkdir -p $(LOG_DIR)
 
 run:
-	@@ERL_LIBS=$(ERL_LIBS) PATH=$(SCRIPT_PATH) \
+	@ERL_LIBS=$(ERL_LIBS) PATH=$(SCRIPT_PATH) \
 	run_erl -daemon ./run/ ./log/ \
 	"erl -pa ebin -config ${config-./dev} -s \'{{PROJECT}}\'"
 
