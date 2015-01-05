@@ -64,8 +64,8 @@ testNewLibrary () {
     if [ "$TRAVIS" = "true" ]; then
         expected="10"
     else
-        #expected="14"
-        expected="10"
+        expected="13"
+        #expected="10"
     fi
     assertEquals $expected \
         "`find $libname -type f|egrep -v 'deps|.git'|wc -l|tr -d ' '`"
@@ -95,7 +95,7 @@ testNewService () {
     if [ "$TRAVIS" = "true" ]; then
         expected="13"
     else
-        #expected="19"
+        expected="18"
         expected="13"
     fi
     assertEquals $expected \
