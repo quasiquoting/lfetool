@@ -64,6 +64,13 @@ TEST_OUT_DIR=./.eunit
 #CASE_CLOSE="]},[verbose]) of ok -> halt(0); _ -> halt(127) end"
 CASE_OPEN="case eunit:test(["
 CASE_CLOSE="],[verbose]) of ok -> halt(0); _ -> halt(127) end"
+LFE_REPO=https://github.com/rvirding/lfe.git
+LUTIL_REPO=https://github.com/lfex/lutil.git
+GLOBAL_LFE_DIR=~/.lfe
+BOOTSTRAP_LFE_DIR=$GLOBAL_LFE_DIR/lfe
+BOOTSTRAP_DEPS_DIR=$GLOBAL_LFE_DIR/deps
+BOOTSTRAP_LFE=$BOOTSTRAP_LFE_DIR/bin/lfe
+BOOTSTRAP_LFEC=$BOOTSTRAP_LFE_DIR/bin/lfec
 
 # Terminal Colors
 BLACK="\033[0;30;40m"
@@ -143,6 +150,12 @@ expr_cmd=expr
 if [ $OS_TYPE = SOLARIS ]; then
     expr_cmd=/usr/ucb/expr      # for commands substr, index, etc
 fi
+
+abspath () {
+  path=$1
+  (cd $(dirname $path)
+   echo $PWD/$(basename $path))
+}
 
 # echon -- echo with no trailing newline
 echon () {
@@ -485,6 +498,40 @@ get_versions () {
     grep version package.exs |awk '{print $2}'|sed -e 's/,//g'
     echon git tags: ''
     echo \"`git tag | tail -1`\"
+}
+
+download_deps () {
+    bootstrap_lfe && \
+    bootstrap_lutil && \
+    ERL_LIBS=`get_bootstrap_erl_libs` \
+    $BOOTSTRAP_LFE -eval '(lutil-cfg:clone-deps)'
+}
+
+bootstrap_lfe () {
+    if [ ! -d $BOOTSTRAP_LFE_DIR ] ; then
+        mkdir -p $GLOBAL_LFE_DIR
+        git clone $LFE_REPO $BOOTSTRAP_LFE_DIR
+        cd $BOOTSTRAP_LFE_DIR && \
+        make compile
+    fi
+}
+
+bootstrap_lutil () {
+    if [ ! -d $BOOTSTRAP_DEPS_DIR/lutil ] ; then
+        mkdir -p $BOOTSTRAP_DEPS_DIR
+        git clone $LUTIL_REPO $BOOTSTRAP_DEPS_DIR/lutil
+        export PATH=$BOOTSTRAP_LFE_DIR/bin:$PATH
+        export ERL_LIBS=`get_bootstrap_erl_libs`
+        cd $BOOTSTRAP_DEPS_DIR/lutil && \
+        mkdir -p deps && \
+        ln -s $BOOTSTRAP_LFE_DIR deps/lfe && \
+        mkdir -p ebin && cd ebin && \
+        $BOOTSTRAP_LFEC $BOOTSTRAP_DEPS_DIR/lutil/src/*.lfe
+    fi
+}
+
+get_bootstrap_erl_libs () {
+    echo `abspath $BOOTSTRAP_LFE_DIR`:$ERL_LIBS:`find $BOOTSTRAP_DEPS_DIR -maxdepth 1 -exec printf "%s:" {} \;`
 }
 
 clean_test_name () {
@@ -1190,6 +1237,18 @@ do_info () {
     esac
 }
 
+do_download () {
+    context=$1
+    case $context in
+        deps)
+            download_deps
+            ;;
+        *)
+            unknown_context_error $context
+            ;;
+    esac
+}
+
 check_context () {
     context=$1
 
@@ -1301,6 +1360,9 @@ run () {
             ;;
         info)
             do_info $context
+            ;;
+        download)
+            do_download $context
             ;;
         *)
             unknown_command_error $command

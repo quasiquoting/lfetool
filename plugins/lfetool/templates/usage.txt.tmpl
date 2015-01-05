@@ -21,6 +21,8 @@ Currently, {{SCRIPT}} supports these commands (with subcommands nested):
    * lfe (or no parameter/empty string), erlang, jlfe, jerl
  * info
    * bindir, erllibs, path, installdir, version
+ * download
+   * deps
 
 Additionally, instead of passing a command, you may choose to run the script
 with one of the following options:
@@ -40,3 +42,5 @@ Example:
   {{SCRIPT}} new library my-first-project
   {{SCRIPT}} new service my-otp-app1
   {{SCRIPT}} new yaws default my-yasw-app1
+  {{SCRIPT}} info erllibs
+  {{SCRIPT}} download deps

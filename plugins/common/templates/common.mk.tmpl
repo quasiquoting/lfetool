@@ -20,10 +20,10 @@ endif
 ERL_LIBS=.:..:../{{PROJECT}}:$(shell $(LFETOOL) info erllibs)
 OS := $(shell uname -s)
 ifeq ($(OS),Linux)
-        HOST=$(HOSTNAME)
+		HOST=$(HOSTNAME)
 endif
 ifeq ($(OS),Darwin)
-        HOST = $(shell scutil --get ComputerName)
+		HOST = $(shell scutil --get ComputerName)
 endif
 
 $(BIN_DIR):
@@ -43,11 +43,12 @@ get-version:
 
 $(EXPM): $(BIN_DIR)
 	@[ -f $(EXPM) ] || \
-	PATH=$(SCRIPT_PATH) lfetool install expm $(BIN_DIR)
+	@PATH=$(SCRIPT_PATH) ERL_LIBS=$(ERL_LIBS) $(LFETOOL) \
+	install expm $(BIN_DIR)
 
 get-deps:
 	@echo "Getting dependencies ..."
-	@which rebar.cmd >/dev/null 2>&1 && rebar.cmd get-deps || rebar get-deps
+	@PATH=$(SCRIPT_PATH) ERL_LIBS=$(ERL_LIBS) $(LFETOOL) download deps
 
 clean-ebin:
 	@echo "Cleaning ebin dir ..."

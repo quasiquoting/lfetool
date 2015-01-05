@@ -24,6 +24,7 @@ And these commands:
 * ``tests``
 * ``repl``
 * ``info``
+* ``download``
 
 Usage information for each of these is linked to below in the "Usage" section.
 
@@ -43,6 +44,18 @@ example:
     $ curl -L -o ./lfetool https://raw.github.com/lfe/lfetool/stable/lfetool
     $ bash lfetool install
 
+
+Dev
+---
+.. code:: bash
+
+    $ curl -L -o ./lfetool https://raw.github.com/lfe/lfetool/dev-v1/lfetool
+    $ bash lfetool install
+
+
+Both
+----
+
 This will install lfetool to ``/usr/local/bin``. Depending upon how the
 permissions for your chossen path are setup, you may need to use ``sudo``.
 
@@ -58,25 +71,9 @@ To run ``lfetool`` more quickly, you can pre-extract the executable:
 .. code:: bash
 
     $ lfetool -x
-    
+
 This will be done for you eventually if you execute the ``lfetool repl`` command.
 
-
-Bleeding Edge
--------------
-
-If you'd like to be able to update with the latest changes in the master branch,
-you can do this instead:
-
-.. code:: bash
-
-    $ cd ~/lab/
-    $ git clone https://github.com/lfe/lfetool.git
-    $ cd lfetool
-    $ ln -s ./lfetool /usr/local/bin/
-
-Permissions are already set on the script in the repo, so there's no need to do
-anything further.
 
 
 Usage
@@ -104,6 +101,7 @@ are linked to individual pages:
 * `Tests Command`_
 * `REPL Command`_
 * `Info Command`_
+* `Download Command`_
 
 
 Development
@@ -167,4 +165,5 @@ provided:
 .. _Tests Command: doc/manual/tests.rst
 .. _REPL Command: doc/manual/repl.rst
 .. _Info Command: doc/manual/info.rst
+.. _Download Command: doc/manual/download.md
 
