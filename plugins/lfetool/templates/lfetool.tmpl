@@ -501,10 +501,12 @@ get_versions () {
 }
 
 download_deps () {
-    bootstrap_lfe && \
-    bootstrap_lutil && \
-    ERL_LIBS=`get_bootstrap_erl_libs` \
-    $BOOTSTRAP_LFE -eval '(lutil-cfg:clone-deps)'
+    START_DIR=`pwd`
+    bootstrap_lfe
+    bootstrap_lutil
+    cd $START_DIR
+    (ERL_LIBS=`get_bootstrap_erl_libs` \
+    $BOOTSTRAP_LFE -eval '(lutil-cfg:clone-deps)')
     rebar get-deps
 }
 
