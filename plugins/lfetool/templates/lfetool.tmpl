@@ -66,6 +66,7 @@ CASE_OPEN="case eunit:test(["
 CASE_CLOSE="],[verbose]) of ok -> halt(0); _ -> halt(127) end"
 LFE_REPO=https://github.com/rvirding/lfe.git
 LUTIL_REPO=https://github.com/lfex/lutil.git
+LCFG_REPO=https://github.com/lfex/lcfg.git
 GLOBAL_LFE_DIR=~/.lfe
 BOOTSTRAP_LFE_DIR=$GLOBAL_LFE_DIR/lfe
 BOOTSTRAP_DEPS_DIR=$GLOBAL_LFE_DIR/deps
@@ -249,7 +250,51 @@ lfetool_not_found_error () {
 }
 
 clone_repo () {
-    git clone --depth 1 $url
+    url=$1
+    path=$2
+    git clone --depth 1 $url $path
+}
+
+bootstrap_lfe () {
+    if [ ! -d $BOOTSTRAP_LFE_DIR ] ; then
+        echo "Bootstrapping LFE to $BOOTSTRAP_LFE_DIR ..."
+        mkdir -p $GLOBAL_LFE_DIR
+        clone_repo $LFE_REPO $BOOTSTRAP_LFE_DIR
+        cd $BOOTSTRAP_LFE_DIR && \
+        make compile
+    fi
+}
+
+bootstrap_lutil () {
+    BOOT_DIR=$BOOTSTRAP_DEPS_DIR/lutil
+    if [ ! -d $BOOT_DIR ] ; then
+        echo "Bootstrapping lutil to $BOOT_DIR ..."
+        mkdir -p $BOOTSTRAP_DEPS_DIR
+        clone_repo $LUTIL_REPO $BOOT_DIR
+        export PATH=$BOOTSTRAP_LFE_DIR/bin:$PATH
+        export ERL_LIBS=`get_bootstrap_erl_libs`
+        cd $BOOT_DIR && \
+        mkdir -p deps && \
+        ln -s $BOOTSTRAP_LFE_DIR deps/lfe && \
+        mkdir -p ebin && cd ebin && \
+        $BOOTSTRAP_LFEC $BOOT_DIR/src/*.lfe
+    fi
+}
+
+bootstrap_lcfg () {
+    BOOT_DIR=$BOOTSTRAP_DEPS_DIR/lcfg
+    if [ ! -d $BOOT_DIR ] ; then
+        echo "Bootstrapping lcfg to $BOOT_DIR ..."
+        mkdir -p $BOOTSTRAP_DEPS_DIR
+        clone_repo $LCFG_REPO $BOOT_DIR
+        export PATH=$BOOTSTRAP_LFE_DIR/bin:$PATH
+        export ERL_LIBS=`get_bootstrap_erl_libs`
+        cd $BOOT_DIR && \
+        mkdir -p deps && \
+        ln -s $BOOTSTRAP_LFE_DIR deps/lfe && \
+        mkdir -p ebin && cd ebin && \
+        $BOOTSTRAP_LFEC $BOOT_DIR/src/*.lfe
+    fi
 }
 
 download_file () {
@@ -504,33 +549,11 @@ download_deps () {
     START_DIR=`pwd`
     bootstrap_lfe
     bootstrap_lutil
+    bootstrap_lcfg
     cd $START_DIR
     (ERL_LIBS=`get_bootstrap_erl_libs` \
-    $BOOTSTRAP_LFE -eval '(lutil-cfg:clone-deps)')
+    $BOOTSTRAP_LFE -eval '(lcfg:clone-deps)' +pc unicode)
     rebar get-deps
-}
-
-bootstrap_lfe () {
-    if [ ! -d $BOOTSTRAP_LFE_DIR ] ; then
-        mkdir -p $GLOBAL_LFE_DIR
-        git clone $LFE_REPO $BOOTSTRAP_LFE_DIR
-        cd $BOOTSTRAP_LFE_DIR && \
-        make compile
-    fi
-}
-
-bootstrap_lutil () {
-    if [ ! -d $BOOTSTRAP_DEPS_DIR/lutil ] ; then
-        mkdir -p $BOOTSTRAP_DEPS_DIR
-        git clone $LUTIL_REPO $BOOTSTRAP_DEPS_DIR/lutil
-        export PATH=$BOOTSTRAP_LFE_DIR/bin:$PATH
-        export ERL_LIBS=`get_bootstrap_erl_libs`
-        cd $BOOTSTRAP_DEPS_DIR/lutil && \
-        mkdir -p deps && \
-        ln -s $BOOTSTRAP_LFE_DIR deps/lfe && \
-        mkdir -p ebin && cd ebin && \
-        $BOOTSTRAP_LFEC $BOOTSTRAP_DEPS_DIR/lutil/src/*.lfe
-    fi
 }
 
 get_bootstrap_erl_libs () {
