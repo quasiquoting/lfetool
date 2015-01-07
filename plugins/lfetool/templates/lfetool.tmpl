@@ -505,6 +505,7 @@ download_deps () {
     bootstrap_lutil && \
     ERL_LIBS=`get_bootstrap_erl_libs` \
     $BOOTSTRAP_LFE -eval '(lutil-cfg:clone-deps)'
+    rebar get-deps
 }
 
 bootstrap_lfe () {
