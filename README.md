@@ -18,6 +18,9 @@
 * [Development](#development-)
   * [Branches](#branches-)
   * [Creating lfetool Plugins](#creating-lfetool-plugins-)
+    * [1.x Series and Bash](#-1.x-series-and-bash-)
+    * [2.x Series and the Future](#2.x-series-and-the-future-)
+    * [Separating CLI and Library](#separating-cli-and-library-)
 
 
 ## Introduction [&#x219F;](#table-of-contents)
@@ -117,7 +120,7 @@ The following branches are used by this project:
 * stable - what you should use for all your production needs; currently on
   v1.x; this is the default branch
 * dev-v1 - on-going improvements to the v1.x series
-* dev-v2 - a convertion of lfetool from a large Bash script to an LFE project;
+* dev-v2 - a conversion of lfetool from a large Bash script to an LFE project;
   the v2.x series (every release to stable gets merged into dev-v2, to benefit
   from any bug fixes/hot-fixes/template improvements/additions/etc.)
 * master - this is kept around for legacy purposes (there are some projects
@@ -125,6 +128,8 @@ The following branches are used by this project:
 
 
 ### Creating lfetool Plugins [&#x219F;](#table-of-contents)
+
+#### 1.x Series and Bash [&#x219F;](#table-of-contents)
 
 *Developing additional lfetool commands*
 
@@ -144,3 +149,59 @@ provided:
 * [Integrate the Plugin](doc/dev-guide/02-integrate.rst)
 * [Documentation and Autocompletion](doc/dev-guide/03-docs.rst)
 * [Testing the Plugin](doc/dev-guide/04-tests.rst)
+
+
+#### 2.x Series and the Future [&#x219F;](#table-of-contents)
+
+With the conversion from Bash to LFE as the codebase for ``lfetool``, the
+plugin system will be changing. This is still up in the air:
+
+* Originally lfetool 2.x was just going to be a complete rewrite in LFE, with
+  its own LFE codebase.
+* Later, Robert Virding expressed interest in bringing lfetool code into LFE
+  propoer, perhaps as part of an effort to establish a stdlib for LFE. The
+  biggest drive for this, however, was an interest in LFE not having any
+  external dependencies, for users being able to perform all basic actions
+  (compiling LFE code, running a REPL, generating projects, etc.) with
+  pure LFE without having to download anything and without any complicated
+  set up procedures.
+* With the announcement of rebar3 and the vastly improved architecture that it
+  offers over "classic rebar", there is now another option: building a series
+  of rebar3 plugins that lfetool could then simply wrap.
+
+This last option highlighted something of interest: as we work on a 2.x,
+LFE-only solution (i.e., non-Bash), the dual issues of what is written and then
+how it is used are completely separable and orthogonal. More on that in the
+next section.
+
+
+#### Separating CLI and Library [&#x219F;](#table-of-contents)
+
+The possibility of a changing CLI (or a CLI that was a moving target)
+emphasized the point that we could create the LFE libraries that would support
+an eventual lfetool 2.x now, without having to figure out how it will get used
+later.
+
+This has already started to happen:
+ * The 1.5 release will have support for ``lfe.config`` files with the
+   [download command](doc/manual/download.md). This uses a new lirbary,
+   [lcfg](https://github.com/lfex/lcfg), that is in charge of all things
+   ``lfe.config``.
+ * The 2.x work that was being done on the new lfetool test runner is being
+   moved over to the [ltest library](https://github.com/lfex/ltest/issues/8).
+ * A [new repository](https://github.com/lfex/ltool) has been created to house
+   the library code for lfetool itself!
+
+If the lfetool LFE code (for the 2.x series) will be moving to a different
+repo, then what is this repo for?
+
+The short answer is the ``lfetool`` CLI. But we're not sure what exactly that
+will be yet. Possibilities include:
+ * Part of Core LFE: another script that sits next to ``bin/lfe``, ``bin/lfec``,
+   and ``bin/lfescript`` whose primary responsibility would be the parsing of
+   command line options to call the appropriate code (which would also have
+   been moved into Core LFE).
+* A stand-alone shell sciprt or lfescirpt that performs the same functions.
+* A shell wrapper around rebar3m which would required the creation of plugins
+  for every ``lfetool`` command. Those plugins would then call out to the
+  various libraries previously created to house the inner logic of lfetool.
