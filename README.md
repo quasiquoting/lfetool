@@ -22,6 +22,7 @@
 * [The Future of ltetool](#the-future-of-ltetool-)
   * [The 2.x Series](#the-2x-series-)
   * [Separating CLI and Library](#separating-cli-and-library-)
+  * [A Component Plan](#a-component-plan-)
 
 
 ## Introduction [&#x219F;](#table-of-contents)
@@ -178,7 +179,7 @@ how it is used are completely separable and orthogonal. More on that in the
 next section.
 
 
-#### Separating CLI and Library [&#x219F;](#table-of-contents)
+### Separating CLI and Library [&#x219F;](#table-of-contents)
 
 The possibility of a changing CLI (or a CLI that was a moving target)
 emphasized the point that we could create the LFE libraries that would support
@@ -212,3 +213,23 @@ will be yet. Possibilities include:
    rebar3 plugins for every ``lfetool`` command. Those plugins would then call
    out to the various libraries previously created to house the inner logic of
    lfetool.
+
+
+### A Component Plan [&#x219F;](#table-of-contents)
+
+To give a better sense of this, the "architecture" of lfetool could look
+something like this:
+
+ * **CLI/User Interface**
+   * help
+   * command line options/arguements parsing
+   * dispatching
+ * **Supporting Libraries**
+   * both LFE-specific (e.g., ltool, lcfg, and ltest),
+   * as well as third-party (perhaps rebar3, mustache, etc.)
+ * **Template Files**
+   * text files amenable to variable substitution
+   * could use erlydtl, mustache, etc.
+ * **Plugin Management**
+   * whether rebar3 is used or not, we will need to provide a clean and
+     easy way to create new commands for lfetool
