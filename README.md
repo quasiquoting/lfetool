@@ -23,6 +23,7 @@
   * [The 2.x Series](#the-2x-series-)
   * [Separating CLI and Library](#separating-cli-and-library-)
   * [A Component Plan](#a-component-plan-)
+  * [A Gentle Migration](#a-gentle-migration-)
 
 
 ## Introduction [&#x219F;](#table-of-contents)
@@ -233,3 +234,26 @@ something like this:
  * **Plugin Management**
    * whether rebar3 is used or not, we will need to provide a clean and
      easy way to create new commands for lfetool
+
+
+### A Gentle Migration [&#x219F;](#table-of-contents)
+
+With the introduction of "bootstrapping" support for lcfg in
+[issue #135](https://github.com/lfe/lfetool/issues/135) ("Working with versioned
+deps can be a nightmare"), the lfetool 1.x series now has access to LFE
+libraries (previously, only the lfetool 2.x series did). This means that we
+don't have to wait for version 2.0 to land before we can take advantage of the
+many benefits (principally maintainability) of using LFE (or even Erlang)
+libraries in developing new features for lfetool.
+
+Related to this, the following have been created:
+ * [an lfetool-internals library]() - taken from the lfetool 2.x series
+   * [lfetool ticket](https://github.com/lfe/lfetool/issues/156)
+   * [ltool library ticket](https://github.com/lfex/ltool/issues/3)
+ * migrations of 2.x series test-runner code to dedicated library
+   * [ltool library ticket](https://github.com/lfex/ltool/issues/1)
+* [lcfg](https://github.com/lfex/lcfg) - for managing ``lfe.config`` files
+
+With each new feature or change made to lfetool, even in the 1.x series, we
+can start using the libraries mentioned above and more, migrating Bash to LFE
+one function at a time.
