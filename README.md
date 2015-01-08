@@ -17,10 +17,11 @@
   * [lfetool Commands](#lfetool-commands-)
 * [Development](#development-)
   * [Branches](#branches-)
-  * [Creating lfetool Plugins](#creating-lfetool-plugins-)
-    * [1.x Series and Bash](#-1.x-series-and-bash-)
-    * [2.x Series and the Future](#2.x-series-and-the-future-)
-    * [Separating CLI and Library](#separating-cli-and-library-)
+  * [Howto](#howto-)
+    * [Creating lfetool 1.x Plugins](#creating-lfetool-1.x-plugins-)
+* [The Future of ltetool](#the-future-of-ltetool-)
+  * [The 2.x Series](#the-2.x-series-)
+  * [Separating CLI and Library](#separating-cli-and-library-)
 
 
 ## Introduction [&#x219F;](#table-of-contents)
@@ -129,7 +130,7 @@ The following branches are used by this project:
 
 ### Creating lfetool Plugins [&#x219F;](#table-of-contents)
 
-#### 1.x Series and Bash [&#x219F;](#table-of-contents)
+#### Creating lfetool 1.x Plugins [&#x219F;](#table-of-contents)
 
 *Developing additional lfetool commands*
 
@@ -151,7 +152,9 @@ provided:
 * [Testing the Plugin](doc/dev-guide/04-tests.rst)
 
 
-#### 2.x Series and the Future [&#x219F;](#table-of-contents)
+## The Future of ltetool [&#x219F;](#table-of-contents)
+
+### The 2.x Series [&#x219F;](#table-of-contents)
 
 With the conversion from Bash to LFE as the codebase for ``lfetool``, the
 plugin system will be changing. This is still up in the air:
