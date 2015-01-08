@@ -1,6 +1,6 @@
 # lfetool
 
-<a href="resources/images/logo-small.png" />
+<img src="resources/images/logo-small.png" />
 
 *An Erlang Lisper's Tool for Admin Tasks, Project Creation, and Infrastructure*
 
