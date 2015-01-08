@@ -252,7 +252,7 @@ Related to this, the following have been created:
    * [ltool library ticket](https://github.com/lfex/ltool/issues/3)
  * migrations of 2.x series test-runner code to dedicated library
    * [ltool library ticket](https://github.com/lfex/ltool/issues/1)
-* [lcfg](https://github.com/lfex/lcfg) - for managing ``lfe.config`` files
+ * [lcfg](https://github.com/lfex/lcfg) - for managing ``lfe.config`` files
 
 With each new feature or change made to lfetool, even in the 1.x series, we
 can start using the libraries mentioned above and more, migrating Bash to LFE
