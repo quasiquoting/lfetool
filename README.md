@@ -8,10 +8,16 @@
 
 
 * [Introduction](#introduction-)
-* [Dependencies](#dependencies-)
+* [Installation](#installation-)
+  * [Stable](#stable-)
+  * [Dev](#dev-)
+  * [Both](#both-)
 * [Usage](#usage-)
-  * [project](#project-)
-    * [deps](#deps-)
+  * [lfetool Options](#lfetool-options-)
+  * [lfetool Commands](#lfetool-commands-)
+* [Development](#development-)
+  * [Branches](#branches-)
+  * [Creating lfetool Plugins](#creating-lfetool-plugins-)
 
 
 ## Introduction [&#x219F;](#table-of-contents)
