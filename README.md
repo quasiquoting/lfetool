@@ -18,9 +18,9 @@
 * [Development](#development-)
   * [Branches](#branches-)
   * [Howto](#howto-)
-    * [Creating lfetool 1.x Plugins](#creating-lfetool-1.x-plugins-)
+    * [Creating lfetool 1.x Plugins](#creating-lfetool-1x-plugins-)
 * [The Future of ltetool](#the-future-of-ltetool-)
-  * [The 2.x Series](#the-2.x-series-)
+  * [The 2.x Series](#the-2x-series-)
   * [Separating CLI and Library](#separating-cli-and-library-)
 
 
