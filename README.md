@@ -128,7 +128,7 @@ The following branches are used by this project:
   still using the old v1.0.x series)
 
 
-### Creating lfetool Plugins [&#x219F;](#table-of-contents)
+### Howto [&#x219F;](#table-of-contents)
 
 #### Creating lfetool 1.x Plugins [&#x219F;](#table-of-contents)
 
