@@ -1,14 +1,20 @@
-#######
-lfetool
-#######
+# lfetool
 
-.. image:: resources/images/logo-small.png
+<a href="resources/images/logo-small.png" />
 
 *An Erlang Lisper's Tool for Admin Tasks, Project Creation, and Infrastructure*
 
+## Table of Contents
 
-Introduction
-============
+
+* [Introduction](#introduction-)
+* [Dependencies](#dependencies-)
+* [Usage](#usage-)
+  * [project](#project-)
+    * [deps](#deps-)
+
+
+## Introduction [&#x219F;](#table-of-contents)
 
 Currently, the script supports these basic options:
 
@@ -29,32 +35,26 @@ And these commands:
 Usage information for each of these is linked to below in the "Usage" section.
 
 
-Installation
-============
+## Installation [&#x219F;](#table-of-contents)
 
+### Stable [&#x219F;](#table-of-contents)
 
-Stable
-------
+Download the [shell script](https://raw.github.com/lfe/lfetool/master/lfetool)
+and save it to a directory in your ``$PATH``. For example:
 
-Download the `shell script`_ and save it to a directory in your ``$PATH``. For
-example:
+```bash
+$ curl -L -o ./lfetool https://raw.github.com/lfe/lfetool/stable/lfetool
+$ bash lfetool install
+```
 
-.. code:: bash
+### Dev [&#x219F;](#table-of-contents)
 
-    $ curl -L -o ./lfetool https://raw.github.com/lfe/lfetool/stable/lfetool
-    $ bash lfetool install
+```bash
+$ curl -L -o ./lfetool https://raw.github.com/lfe/lfetool/dev-v1/lfetool
+$ bash lfetool install
+```
 
-
-Dev
----
-.. code:: bash
-
-    $ curl -L -o ./lfetool https://raw.github.com/lfe/lfetool/dev-v1/lfetool
-    $ bash lfetool install
-
-
-Both
-----
+### Both [&#x219F;](#table-of-contents)
 
 This will install lfetool to ``/usr/local/bin``. Depending upon how the
 permissions for your chossen path are setup, you may need to use ``sudo``.
@@ -62,53 +62,49 @@ permissions for your chossen path are setup, you may need to use ``sudo``.
 If you installed with ``sudo`` but would like to be able to self-update the
 script in the future, you should also change the ownership:
 
-.. code:: bash
-
-    $ chown $USER /usr/local/bin/lfetool
+```bash
+$ chown $USER /usr/local/bin/lfetool
+```
 
 To run ``lfetool`` more quickly, you can pre-extract the executable:
 
-.. code:: bash
+```bash
+$ lfetool -x
+```
 
-    $ lfetool -x
-
-This will be done for you eventually if you execute the ``lfetool repl`` command.
-
-
-
-Usage
-=====
+This will be done for you eventually if you execute the ``lfetool repl``
+command.
 
 
-``lfetool`` Options
--------------------
+## Usage [&#x219F;](#table-of-contents)
+
+
+### ``lfetool`` Options [&#x219F;](#table-of-contents)
+
 
 ``lfetool`` offer several command-line options/flags. The details are presented
 on the "options" manual page:
 
-* `Options`_
+* [Options](doc/manual/options.rst)
 
 
-``lfetool`` Commands
---------------------
+### ``lfetool`` Commands [&#x219F;](#table-of-contents)
 
 Details on each of the commands listed below and the subcommands they offer
 are linked to individual pages:
 
-* `Install Command`_
-* `Update Command`_
-* `New Command`_
-* `Tests Command`_
-* `REPL Command`_
-* `Info Command`_
-* `Download Command`_
+* [Install Command](doc/manual/install.rst)
+* [Update Command](doc/manual/update.rst)
+* [New Command](doc/manual/new.rst)
+* [Tests Command](doc/manual/tests.rst)
+* [REPL Command](doc/manual/repl.rst)
+* [Info Command](doc/manual/info.rst)
+* [Download Command](doc/manual/download.md)
 
 
-Development
-===========
+## Development [&#x219F;](#table-of-contents)
 
-Branches
---------
+### Branches [&#x219F;](#table-of-contents)
 
 The following branches are used by this project:
 
@@ -121,8 +117,8 @@ The following branches are used by this project:
 * master - this is kept around for legacy purposes (there are some projects
   still using the old v1.0.x series)
 
-Creating lfetool Plugins
-------------------------
+
+### Creating lfetool Plugins [&#x219F;](#table-of-contents)
 
 *Developing additional lfetool commands*
 
@@ -138,32 +134,7 @@ of plugin you want to create, or starting completely from scratch.
 For those that wish to start from scratch, the following dev guide is
 provided:
 
-* `Create the Plugin`_
-* `Integrate the Plugin`_
-* `Documentation and Autocompletion`_
-* `Testing the Plugin`_
-
-
-.. Links
-.. -----
-.. _LFE rebar: hhttps://github.com/oubiwann/lfe-sample-rebar-plugin
-.. _lfe-skel: https://github.com/lfe/skeleton-project
-.. _shell script: https://raw.github.com/lfe/lfetool/master/lfetool
-.. _exemplar: https://github.com/lfe/exemplar
-.. _Twitter Bootstrap: http://getbootstrap.com/
-.. _rebar: https://github.com/rebar/rebar
-.. _erlang.mk: https://github.com/extend/erlang.mk
-.. _relx: https://github.com/erlware/relx
-.. _Create the Plugin: doc/dev-guide/01-create.rst
-.. _Integrate the Plugin: doc/dev-guide/02-integrate.rst
-.. _Documentation and Autocompletion: doc/dev-guide/03-docs.rst
-.. _Testing the Plugin: doc/dev-guide/04-tests.rst
-.. _Install Command: doc/manual/install.rst
-.. _Options: doc/manual/options.rst
-.. _Update Command: doc/manual/update.rst
-.. _New Command: doc/manual/new.rst
-.. _Tests Command: doc/manual/tests.rst
-.. _REPL Command: doc/manual/repl.rst
-.. _Info Command: doc/manual/info.rst
-.. _Download Command: doc/manual/download.md
-
+* [Create the Plugin](doc/dev-guide/01-create.rst)
+* [Integrate the Plugin](doc/dev-guide/02-integrate.rst)
+* [Documentation and Autocompletion](doc/dev-guide/03-docs.rst)
+* [Testing the Plugin](doc/dev-guide/04-tests.rst)
