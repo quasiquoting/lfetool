@@ -183,6 +183,7 @@ an eventual lfetool 2.x now, without having to figure out how it will get used
 later.
 
 This has already started to happen:
+
  * The 1.5 release will have support for ``lfe.config`` files with the
    [download command](doc/manual/download.md). This uses a new lirbary,
    [lcfg](https://github.com/lfex/lcfg), that is in charge of all things
@@ -197,11 +198,12 @@ repo, then what is this repo for?
 
 The short answer is the ``lfetool`` CLI. But we're not sure what exactly that
 will be yet. Possibilities include:
+
  * Part of Core LFE: another script that sits next to ``bin/lfe``, ``bin/lfec``,
    and ``bin/lfescript`` whose primary responsibility would be the parsing of
    command line options to call the appropriate code (which would also have
    been moved into Core LFE).
-* A stand-alone shell sciprt or lfescirpt that performs the same functions.
-* A shell wrapper around rebar3m which would required the creation of plugins
-  for every ``lfetool`` command. Those plugins would then call out to the
-  various libraries previously created to house the inner logic of lfetool.
+ * A stand-alone shell sciprt or lfescirpt that performs the same functions.
+ * A shell wrapper around rebar3m which would required the creation of plugins
+   for every ``lfetool`` command. Those plugins would then call out to the
+   various libraries previously created to house the inner logic of lfetool.
