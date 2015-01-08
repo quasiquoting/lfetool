@@ -132,7 +132,7 @@ testNewYAWS () {
     assertEquals "include resources/make/yaws.mk" \
         "`head -3 $yawsname/Makefile|tail -1`"
     assertEquals "ETC_DIR = ./etc" \
-        "`head -1 $yawsname/resources/make/common.mk"
+        "`head -1 $yawsname/resources/make/common.mk`"
     assertEquals '(defmodule my-yaws' \
         "`head -1 $yawsname/src/my-yaws.lfe`"
     assertEquals '(defmodule my-yaws-routes' \
