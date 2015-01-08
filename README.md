@@ -199,11 +199,13 @@ repo, then what is this repo for?
 The short answer is the ``lfetool`` CLI. But we're not sure what exactly that
 will be yet. Possibilities include:
 
- * Part of Core LFE: another script that sits next to ``bin/lfe``, ``bin/lfec``,
-   and ``bin/lfescript`` whose primary responsibility would be the parsing of
-   command line options to call the appropriate code (which would also have
-   been moved into Core LFE).
- * A stand-alone shell sciprt or lfescirpt that performs the same functions.
- * A shell wrapper around rebar3m which would required the creation of plugins
-   for every ``lfetool`` command. Those plugins would then call out to the
-   various libraries previously created to house the inner logic of lfetool.
+ * **Part of Core LFE**: another script that sits next to ``bin/lfe``,
+   ``bin/lfec``, and ``bin/lfescript`` whose primary responsibility would be the
+   parsing of command line options to call the appropriate code (which would
+   also have been moved into Core LFE).
+ * **A stand-alone shell sciprt or lfescirpt**: it would perform the same
+   functions as outlined in the previous bullet, just not as a part of Core LFE.
+ * **A shell wrapper around rebar3**: this would required the creation of
+   rebar3 plugins for every ``lfetool`` command. Those plugins would then call
+   out to the various libraries previously created to house the inner logic of
+   lfetool.
