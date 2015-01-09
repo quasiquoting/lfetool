@@ -278,6 +278,7 @@ bootstrap_lutil () {
         ln -s $BOOTSTRAP_LFE_DIR deps/lfe && \
         mkdir -p ebin && cd ebin && \
         $BOOTSTRAP_LFEC $BOOT_DIR/src/*.lfe
+        cp $BOOT_DIR/src/lutil.app.src $BOOT_DIR/ebin/lutil.app
     fi
 }
 
@@ -294,6 +295,7 @@ bootstrap_lcfg () {
         ln -s $BOOTSTRAP_LFE_DIR deps/lfe && \
         mkdir -p ebin && cd ebin && \
         $BOOTSTRAP_LFEC $BOOT_DIR/src/*.lfe
+        cp $BOOT_DIR/src/lcfg.app.src $BOOT_DIR/ebin/lcfg.app
     fi
 }
 
