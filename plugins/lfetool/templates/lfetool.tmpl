@@ -306,7 +306,6 @@ download_file () {
 }
 
 get_erl_install_dir () {
-    #erl -eval 'io:fwrite(code:lib_dir()), halt().' -run init stop -noshell
     erl -eval 'io:fwrite(re:replace(code:lib_dir(), "~", "~~", [global, {return,list}])), halt().' -run init stop -noshell
 }
 
@@ -519,8 +518,16 @@ get_path () {
     echo ${DEPS}/lfe/bin:/opt/erlang/erjang:$PATH
 }
 
+get_bootstrap_erl_libs () {
+    echo `abspath $BOOTSTRAP_LFE_DIR`:$ERL_LIBS:`find $BOOTSTRAP_DEPS_DIR -maxdepth 1 -exec printf "%s:" {} \;`
+}
+
+get_local_erl_libs () {
+    find $DEPS -maxdepth 1 -exec printf "%s:" {} \; | sed "s#\(.*$\)#\1$TEST_OUT_DIR:.#"
+}
+
 get_erl_libs () {
-    echo $ERL_LIBS:`find $DEPS -maxdepth 1 -exec printf "%s:" {} \; | sed "s#\(.*$\)#\1$TEST_OUT_DIR:.#"`
+    echo $ERL_LIBS:`get_local_erl_libs`:`get_bootstrap_erl_libs`
 }
 
 construct_pa_ebin_option() {
@@ -556,10 +563,6 @@ download_deps () {
     rebar get-deps
 }
 
-get_bootstrap_erl_libs () {
-    echo `abspath $BOOTSTRAP_LFE_DIR`:$ERL_LIBS:`find $BOOTSTRAP_DEPS_DIR -maxdepth 1 -exec printf "%s:" {} \;`
-}
-
 clean_test_name () {
     egrep -v '.*\.erl$' | sed -e 's/.beam//' -e 's/^.eunit\///'
 }
@@ -577,15 +580,15 @@ all_but_last_line () {
 }
 
 get_unit_tests () {
-    ERL_LIBS=$ERL_LIBS:`lfetool info erllibs` erl -eval "io:format(\"~p\", [ltest:'get-unit-beams'()])" -noshell -s erlang halt|tr -d "\n[] "|tr \" \'|sed -e 's|\(\./\)*\.eunit/||g'
+    ERL_LIBS=`get_erl_libs` erl -eval "io:format(\"~p\", [ltest:'get-unit-beams'()])" -noshell -s erlang halt|tr -d "\n[] "|tr \" \'|sed -e 's|\(\./\)*\.eunit/||g'
 }
 
 get_integration_tests () {
-    ERL_LIBS=$ERL_LIBS:`lfetool info erllibs` erl -eval "io:format(\"~p\", [ltest:'get-integration-beams'()])" -noshell -s erlang halt|tr -d "\n[] "|tr \" \'|sed -e 's|\(\./\)*\.eunit/||g'
+    ERL_LIBS=`get_erl_libs` erl -eval "io:format(\"~p\", [ltest:'get-integration-beams'()])" -noshell -s erlang halt|tr -d "\n[] "|tr \" \'|sed -e 's|\(\./\)*\.eunit/||g'
 }
 
 get_system_tests () {
-    ERL_LIBS=$ERL_LIBS:`lfetool info erllibs` erl -eval "io:format(\"~p\", [ltest:'get-system-beams'()])" -noshell -s erlang halt|tr -d "\n[] "|tr \" \'|sed -e 's|\(\./\)*\.eunit/||g'
+    ERL_LIBS=`get_erl_libs` erl -eval "io:format(\"~p\", [ltest:'get-system-beams'()])" -noshell -s erlang halt|tr -d "\n[] "|tr \" \'|sed -e 's|\(\./\)*\.eunit/||g'
 }
 
 clean_test_results () {
