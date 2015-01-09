@@ -56,14 +56,14 @@ and save it to a directory in your ``$PATH``. For example:
 
 ```bash
 $ curl -L -o ./lfetool https://raw.github.com/lfe/lfetool/stable/lfetool
-$ bash lfetool install
+$ bash ./lfetool install
 ```
 
 ### Dev [&#x219F;](#table-of-contents)
 
 ```bash
 $ curl -L -o ./lfetool https://raw.github.com/lfe/lfetool/dev-v1/lfetool
-$ bash lfetool install
+$ bash ./lfetool install
 ```
 
 ### Both [&#x219F;](#table-of-contents)
