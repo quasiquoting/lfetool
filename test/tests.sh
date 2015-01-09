@@ -63,8 +63,8 @@ testNewLibrary () {
     assertEquals "LIB = \$(PROJECT)" \
         "`head -6 $libname/resources/make/common.mk|tail -1`"
     if [ "$TRAVIS" = "true" ]; then
-        expected="13"
-        #expected="10"
+        #expected="13"
+        expected="10"
     else
         expected="10"
     fi
@@ -96,8 +96,8 @@ testNewService () {
     assertEquals "LIB = \$(PROJECT)" \
         "`head -6 $libname/resources/make/common.mk|tail -1`"
     if [ "$TRAVIS" = "true" ]; then
-        expected="18"
-        #expected="13"
+        #expected="18"
+        expected="13"
     else
         expected="19"
     fi
