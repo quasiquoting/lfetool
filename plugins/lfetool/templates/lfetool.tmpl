@@ -545,8 +545,6 @@ get_versions () {
     COMMAND=${PART1}${APP_SRC}${PART2}${PART3}
     echon app.src: ''
     erl -eval "$COMMAND" -run init stop -noshell
-    echon package.exs: ''
-    grep version package.exs |awk '{print $2}'|sed -e 's/,//g'
     echon git tags: ''
     echo \"`git tag | tail -1`\"
 }
@@ -813,7 +811,6 @@ create_project_files () {
     create_file "$commonmk" $project/resources/make/common.mk {{PROJECT}} $project
     create_file "$travisci" $project/.travis.yml {{PROJECT}} $project
     create_file "$readme" $project/README.md {{PROJECT}} $project
-    create_file "$package" $project/package.exs {{PROJECT}} $project
 }
 
 create_library_files () {

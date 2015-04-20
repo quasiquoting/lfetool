@@ -75,8 +75,7 @@ of Erlang:
 ,,,,,,,,,,,,,,,,
 
 To get all the versions defined in your project (``lfetool`` looks for versions
-defined in ``package.exs`` and ``src/*.app.src`` as well as git tags), use the
-followingn command:
+defined in ``src/*.app.src`` as well as git tags), use the following command:
 
 .. code:: shell
 

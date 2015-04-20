@@ -7,10 +7,6 @@ fill_common_files () {
     template="plugins/common/templates/.gitignore.tmpl"
     pattern="{{GITIGNORE}}"
     fill_tool_var $template $pattern
-    # expm package file
-    template="plugins/common/templates/package.exs.tmpl"
-    pattern="{{PACKAGE}}"
-    fill_tool_var $template $pattern
     # rebar config file
     template="plugins/common/templates/rebar.config.tmpl"
     pattern="{{REBAR}}"

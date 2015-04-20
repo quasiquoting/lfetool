@@ -78,8 +78,6 @@ testNewLibrary () {
         "`head -1 $libname/test/unit-my-lib-tests.lfe`"
     assertEquals '# my-lib' \
         "`head -1 $libname/README.md`"
-    assertEquals 'name:"my-lib",' \
-        "`head -2 $libname/package.exs|tail -1|tr -d ' '`"
     assertEquals '{erl_opts, [debug_info, {src_dirs, ["test"]}]}.' \
         "`head -1 $libname/rebar.config`"
 }
@@ -115,8 +113,6 @@ testNewService () {
         "`head -1 $svcname/test/unit-my-service-tests.lfe`"
     assertEquals '# my-service' \
         "`head -1 $svcname/README.md`"
-    assertEquals 'name:"my-service",' \
-        "`head -2 $svcname/package.exs|tail -1|tr -d ' '`"
     assertEquals '{erl_opts, [debug_info, {src_dirs, ["test"]}]}.' \
         "`head -1 $svcname/rebar.config`"
 }
@@ -150,8 +146,6 @@ testNewYAWS () {
         "`head -1 $yawsname/test/unit-my-yaws-tests.lfe`"
     assertEquals '# my-yaws' \
         "`head -1 $yawsname/README.md`"
-    assertEquals 'name:"my-yaws",' \
-        "`head -2 $yawsname/package.exs|tail -1|tr -d ' '`"
     assertEquals '{erl_opts, [debug_info, {src_dirs, ["test"]}]}.' \
         "`head -1 $yawsname/rebar.config`"
     assertEquals 'logdir = logs' \
