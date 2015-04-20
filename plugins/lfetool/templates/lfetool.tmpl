@@ -66,6 +66,7 @@ CASE_OPEN="case eunit:test(["
 CASE_CLOSE="],[verbose]) of ok -> halt(0); _ -> halt(127) end"
 LFE_REPO=https://github.com/rvirding/lfe.git
 LUTIL_REPO=https://github.com/lfex/lutil.git
+LTEST_REPO=https://github.com/lfex/ltest.git
 LCFG_REPO=https://github.com/lfex/lcfg.git
 GLOBAL_LFE_DIR=~/.lfe
 BOOTSTRAP_LFE_DIR=$GLOBAL_LFE_DIR/lfe
@@ -277,6 +278,21 @@ bootstrap_lutil () {
         mkdir -p ebin && cd ebin && \
         $BOOTSTRAP_LFEC $BOOT_DIR/src/*.lfe
         cp $BOOT_DIR/src/lutil.app.src $BOOT_DIR/ebin/lutil.app
+    fi
+}
+
+bootstrap_ltest () {
+    BOOT_DIR=$BOOTSTRAP_DEPS_DIR/ltest
+    if [ ! -d $BOOT_DIR ] ; then
+        echo "Bootstrapping ltest to $BOOT_DIR ..."
+        clone_repo $LTEST_REPO $BOOT_DIR 1> /dev/null
+        export PATH=$BOOTSTRAP_LFE_DIR/bin:$PATH
+        export ERL_LIBS=`get_bootstrap_erl_libs`
+        cd $BOOT_DIR && \
+        ln -s $BOOTSTRAP_LFE_DIR $BOOTSTRAP_DEPS_DIR && \
+        mkdir -p ebin && cd ebin && \
+        $BOOTSTRAP_LFEC $BOOT_DIR/src/*.lfe
+        cp $BOOT_DIR/src/ltest.app.src $BOOT_DIR/ebin/ltest.app
     fi
 }
 
@@ -554,6 +570,7 @@ download_deps () {
     bootstrap_lfe
     bootstrap_lutil
     bootstrap_lcfg
+    bootstrap_ltest
     cd $START_DIR
     (ERL_LIBS=`get_bootstrap_erl_libs` \
     $BOOTSTRAP_LFE -eval '(lcfg:clone-deps)' +pc unicode)
