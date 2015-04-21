@@ -171,19 +171,19 @@ version of Erlang.
     $ lfetool install rebar ~/bin/
 
 
-``install expm``
+``install mix``
 ,,,,,,,,,,,,,,,,
 
-We use ``expm`` to upload project info to http://expm.co/. Here's how you
+We use ``mix`` to upload project info to http://hex.pm/. Here's how you
 install it:
 
 .. code:: bash
 
-    $ lfetool install expm
+    $ lfetool install mix
 
 .. code:: bash
 
-    $ lfetool install expm ~/bin/
+    $ lfetool install mix ~/bin/
 
 
 .. Links

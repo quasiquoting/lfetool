@@ -447,13 +447,13 @@ install_relx () {
     cd - > /dev/null 2>&1
 }
 
-install_expm () {
+install_mix () {
     directory=$1
     if [ x"$directory" = x ]; then
         directory=/usr/local/bin
     fi
-    url="http://expm.co/__download__/expm"
-    file=expm
+    url="http://s3.hex.pm/builds/mix/mix"
+    file=mix
     cd /tmp > /dev/null 2>&1 && \
     download_file $url && \
     install_file $file $directory && \
@@ -1131,8 +1131,8 @@ do_install () {
         relx)
             install_relx $arg1
             ;;
-        expm)
-            install_expm $arg1
+        mix)
+            install_mix $arg1
             ;;
         erjang)
             install_erjang $arg1
