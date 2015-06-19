@@ -279,6 +279,9 @@ bootstrap_lutil () {
         mkdir -p ebin && cd ebin && \
         $BOOTSTRAP_LFEC $BOOT_DIR/src/*.lfe
         cp $BOOT_DIR/src/lutil.app.src $BOOT_DIR/ebin/lutil.app
+        ERL_LIBS=$BOOTSTRAP_LFE_DIR/ebin:`pwd` lfec -o \
+        $BOOTSTRAP_DEPS_DIR/lutil/ebin/ \
+        $BOOTSTRAP_DEPS_DIR/lutil/src/*.lfe
     fi
 }
 
@@ -295,6 +298,10 @@ bootstrap_ltest () {
         mkdir -p ebin && cd ebin && \
         $BOOTSTRAP_LFEC $BOOT_DIR/src/*.lfe
         cp $BOOT_DIR/src/ltest.app.src $BOOT_DIR/ebin/ltest.app
+        PATH=~/.lfe/lfe/bin:$PATH
+        ERL_LIBS=$BOOTSTRAP_LFE_DIR/ebin:$BOOTSTRAP_DEPS_DIR/lutil:`pwd` \
+        lfec -o $BOOTSTRAP_DEPS_DIR/ltest/ebin/ \
+        $BOOTSTRAP_DEPS_DIR/ltest/src/*.lfe
     fi
 }
 
@@ -311,6 +318,9 @@ bootstrap_lcfg () {
         mkdir -p ebin && cd ebin && \
         $BOOTSTRAP_LFEC $BOOT_DIR/src/*.lfe
         cp $BOOT_DIR/src/lcfg.app.src $BOOT_DIR/ebin/lcfg.app
+        ERL_LIBS=$BOOTSTRAP_LFE_DIR/ebin:$BOOTSTRAP_DEPS_DIR/lutil:`pwd` \
+        lfec -o $BOOTSTRAP_DEPS_DIR/lcfg/ebin/ \
+        $BOOTSTRAP_DEPS_DIR/lcfg/src/*.lfe
     fi
 }
 
