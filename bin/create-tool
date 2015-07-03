@@ -112,9 +112,9 @@ compress_tool () {
 
     printf "lfetool=" >> $temp
     if [ $OS_TYPE = Darwin ]; then
-        gzip --best --stdout $dest | base64 -b 0 >> $temp
+        gzip --best -c $dest | base64 -b 0 >> $temp
     else
-        gzip --best --stdout $dest | base64 -w 0 >> $temp
+        gzip --best -c $dest | base64 -w 0 >> $temp
     fi
     #printf "\"\n" >> $temp
 
@@ -135,7 +135,7 @@ decode () {
 }
 
 uncompress () {
-    echo \$lfetool | decode | gzip -d --stdout
+    echo \$lfetool | decode | gzip -d -c
 }
 
 add_warning () {
