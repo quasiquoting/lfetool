@@ -1,4 +1,4 @@
-#! /bin/bash
+#! /usr/bin/env bash
 #set -x
 
 version=1.5.0-dev
@@ -100,7 +100,7 @@ add_warning () {
 }
 
 compress_tool () {
-    echo "#! /bin/bash" > $temp
+    echo "#! /usr/bin/env bash" > $temp
     echo "#set -x" >> $temp
     echo >> $temp
     add_warning >> $temp
@@ -153,9 +153,9 @@ run () {
             echo
             echo "Extracting file ..."
             tmp=/tmp/\`date "+%Y%d%m%H%M%S_lfetool"\`
-            echo "#! /bin/bash" > \$tmp
+            echo "#! /usr/bin/env bash" > \$tmp
             echo "" >> \$tmp
-	    add_warning >> \$tmp
+            add_warning >> \$tmp
             echo "" >> \$tmp
             echo "version=\$version" >> \$tmp
             echo "" >> \$tmp
