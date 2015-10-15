@@ -17,12 +17,12 @@ case `uname -s` in
         ;;
     SunOS)
         case `uname -r` in
-            4*) OS_TYPE=SUNBSD ;;
-            5*) OS_TYPE=SOLARIS ;;
+            4*) OS_TYPE=SunBSD ;;
+            5*) OS_TYPE=Solaris ;;
         esac
         ;;
     Linux)
-        OS_TYPE=LINUX
+        OS_TYPE=Linux
         ;;
     Darwin)
         OS_TYPE=Darwin  ## Apple OS X
@@ -42,8 +42,10 @@ case `uname -s` in
 esac
 
 # load all the fillers from the plugins
+echo "  Sourcing filler scripts ..."
 for FILE in `ls plugins/*/filler.sh`; do
-    . $FILE
+    source $FILE
+    echo "    Sourced $FILE."
 done
 
 # substitute template patterns with values
@@ -53,24 +55,26 @@ fill_tool_var () {
     if [ x"$pattern" = x ]; then
         pattern="{{NOOP}}"
     fi
-    ###data=`cat "$template" | base64`
-    # DEBUG
-    #echo $template
-    #echo $pattern
-    #echo $data
+    echo "    Assigning base64 contents of $template to $pattern ..."
 
-    awk -F= -v tmpl=$template -v pat=$pattern -v OS=$OS_TYPE \
-        '{if (index($2, pat) > 0) {
-             printf("%s=\"", $1);
-             if (OS == "Darwin") {
-                 "base64 -b 0 < " tmpl | getline b64;
-             } else {
-                 "base64 -w 0 < " tmpl | getline b64;
-             }
-             printf("%s\"\n", b64)
-         } else { print } }' $dest > $temp
+    # XXX this awk is broken on Ubuntu 15.04
+    #awk -F= -v tmpl=$template -v pat=$pattern -v OS=$OS_TYPE \
+    #    '{if (index($2, pat) > 0) {
+    #         printf("%s=\"", $1);
+    #         if (OS == "Darwin") {
+    #             "base64 -b 0 < " tmpl | getline b64;
+    #         } else {
+    #             "base64 -w 0 < " tmpl | getline b64;
+    #         }
+    #         printf("%s\"\n", b64)
+    #     } else { print } }' $dest > $temp
 
-    #sed -e "s#$pattern#$data#g" $dest > $temp
+    if [ "$OS" = Darwin ]; then
+      data=`base64 -b 0 < $template`
+    else
+      data=`base64 -w 0 < $template`
+    fi
+    sed -e "s#$pattern#$data#g" $dest > $temp
     mv $temp $dest
 }
 
@@ -79,6 +83,7 @@ add_license () {
 }
 
 fill_templates () {
+    echo "  Filling templates ..."
     cp $tooltemplate $dest
     fill_lfetool_files
     fill_common_files
@@ -100,6 +105,7 @@ add_warning () {
 }
 
 compress_tool () {
+    echo "  Compressing ..."
     echo "#! /usr/bin/env bash" > $temp
     echo "#set -x" >> $temp
     echo >> $temp
@@ -184,6 +190,7 @@ ENDSCRIPT
 run () {
     fill_templates
     compress_tool
+    echo "  Setting permissions ..."
     chmod 755 $dest
 }
 
