@@ -68,11 +68,12 @@ LFE_REPO=https://github.com/rvirding/lfe.git
 LUTIL_REPO=https://github.com/lfex/lutil.git
 LTEST_REPO=https://github.com/lfex/ltest.git
 LCFG_REPO=https://github.com/lfex/lcfg.git
+CLJ_REPO=https://github.com/lfex/clj.git
 GLOBAL_LFE_DIR=~/.lfe
 BOOTSTRAP_LFE_DIR=$GLOBAL_LFE_DIR/lfe
 BOOTSTRAP_LFE=$BOOTSTRAP_LFE_DIR/bin/lfe
 BOOTSTRAP_LFEC=$BOOTSTRAP_LFE_DIR/bin/lfec
-BOOTSTRAP_DEPS_DIR=$GLOBAL_LFE_DIR/libs
+BOOTSTRAP_DEPS_DIR=$GLOBAL_LFE_DIR/lib
 
 # Terminal Colors
 BLACK="\033[0;30;40m"
@@ -321,6 +322,26 @@ bootstrap_lcfg () {
         ERL_LIBS=$BOOTSTRAP_LFE_DIR/ebin:$BOOTSTRAP_DEPS_DIR/lutil:`pwd` \
         lfec -o $BOOTSTRAP_DEPS_DIR/lcfg/ebin/ \
         $BOOTSTRAP_DEPS_DIR/lcfg/src/*.lfe
+    fi
+}
+
+bootstrap_clj () {
+    NAME=clj
+    BOOT_DIR=$BOOTSTRAP_DEPS_DIR/$NAME
+    if [ ! -d $BOOT_DIR ] ; then
+        echo "Bootstrapping $NAME to $BOOT_DIR ..."
+        clone_repo $CLJ_REPO $BOOT_DIR 1> /dev/null
+        export PATH=$BOOTSTRAP_LFE_DIR/bin:$PATH
+        export ERL_LIBS=`get_bootstrap_erl_libs`
+        cd $BOOT_DIR && \
+        ln -s $BOOTSTRAP_LFE_DIR $BOOTSTRAP_DEPS_DIR || \
+        echo "LFE already symlinked ..." && \
+        mkdir -p ebin && cd ebin && \
+        $BOOTSTRAP_LFEC $BOOT_DIR/src/*.lfe
+        cp $BOOT_DIR/src/${NAME}.app.src $BOOT_DIR/ebin/${NAME}.app
+        ERL_LIBS=$BOOTSTRAP_LFE_DIR/ebin:$BOOTSTRAP_DEPS_DIR/lutil:`pwd` \
+        lfec -o $BOOTSTRAP_DEPS_DIR/$NAME/ebin/ \
+        $BOOTSTRAP_DEPS_DIR/$NAME/src/*.lfe
     fi
 }
 
@@ -583,6 +604,7 @@ download_deps () {
     bootstrap_lfe
     bootstrap_lutil
     bootstrap_lcfg
+    bootstrap_clj
     bootstrap_ltest
     cd $START_DIR
     (ERL_LIBS=`get_bootstrap_erl_libs` \
