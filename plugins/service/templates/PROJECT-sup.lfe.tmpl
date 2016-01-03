@@ -1,26 +1,27 @@
 (defmodule {{PROJECT}}-sup
+  (doc "TODO: write docstring")
   (behaviour supervisor)
   ;; API
   (export (start_link 0))
   ;; Supervisor callbacks
   (export (init 1)))
 
-(defun server-name ()
-  '{{PROJECT}}-sup)
+(defun SERVER () (MODULE))
 
 (defun start_link ()
-  (: supervisor start_link
-    (tuple 'local (server-name)) (MODULE) '()))
+  "Create a supervisor process as part of a supervision tree."
+  (supervisor:start_link `#(local ,(SERVER)) (MODULE) []))
 
 (defun init (args)
-  (let* ((server (tuple
-                   '{{PROJECT}}-server
-                   (tuple '{{PROJECT}}-server 'start_link '())
-                   'permanent
-                   2000
-                   'worker
-                   (list '{{PROJECT}}-server)
-                   ))
-         (children (list server))
-         (restart-strategy (tuple 'one_for_one 3 1)))
-    (tuple 'ok (tuple restart-strategy children))))
+  "Return the restart strategy and child specifications."
+  (let* ((server '#m(id       {{PROJECT}}-server
+                     start    {{PROJECT}}-server start_link [])
+                     restart  permanent
+                     shutdown 2000
+                     type     worker
+                     modules  [{{PROJECT}}-server]))
+         (children `[,server])
+         (restart-strategy '#m(strategy  one_for_one
+                               intensity 3
+                               period    1)))
+    `#(ok #(,restart-strategy ,children))))
