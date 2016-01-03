@@ -1,15 +1,16 @@
 (defmodule {{PROJECT}}-app
+  (doc "TODO: write docstring")
   (behaviour application)
   (export (start 2)
-          (stop 1)))
+          (stop  1)))
 
 (defun start (type args)
-  (let ((result (: {{PROJECT}}-sup start_link)))
+  "Start the application."
+  (let ((result ({{PROJECT}}-sup:start_link)))
     (case result
-      ((tuple 'ok pid)
-        result)
-      (_
-        (tuple 'error result)))))
+      (`#('ok ,pid) result)
+      (_other       `#(error ,result)))))
 
 (defun stop (state)
+  "Stop the application."
   'ok)
